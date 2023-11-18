@@ -1,0 +1,21 @@
+/* HEADER */
+header {
+  display: grid;
+  grid-template-columns: .75fr .25fr;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.title {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.scores {
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 40px;
+}
