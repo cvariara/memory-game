@@ -30,3 +30,19 @@
 .game-over p {
   font-size: 26px;
 }
+
+.play {
+  padding: 12px 24px;
+  border-radius: 20px;
+  background-color: rgb(194, 80, 80);
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  transition: all 0.2s ease-out;
+}
+
+.play:hover {
+  transform: scale(1.05, 1.05);
+  background-color: rgb(170, 44, 44);
+}
