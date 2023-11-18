@@ -9,7 +9,7 @@ export default function Card({ character, handleClick, flipped }) {
 
   return (
     <div
-      className={`card${flipped ? " flipped" : ""}`}
+      className={`card ${flipped ? "flipped" : ""}`}
       onClick={handleCardClick}
     >
       <div className='front'>

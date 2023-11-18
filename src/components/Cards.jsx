@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Cards.css"
+import "../styles/Cards.css";
 import Card from "./Card";
 import GameOverModal from "./GameOverModal";
 import CHARACTERS from "../utils/data";
@@ -10,7 +10,7 @@ export default function Cards({ score, setScore, highScore, setHighScore }) {
   const [gameWon, setGameWon] = useState(false);
   const [flipped, setFlipped] = useState(false);
 
-  const randomize = () => {
+  const randomize = (characters) => {
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -18,25 +18,34 @@ export default function Cards({ score, setScore, highScore, setHighScore }) {
       }
       return array;
     }
-    const randCharacters = shuffleArray(chars);
+    console.log("test");
+    const randCharacters = shuffleArray(characters);
     setChars(randCharacters);
   };
 
-
-  const handleFlip = () => {
+  const handleFlip = (updatedCharacters) => {
     setFlipped(true);
     setTimeout(() => {
-      randomize();
       setFlipped(false);
-    }, 1000);
-  }
+    }, 1500);
+    randomize(updatedCharacters);
+  };
 
   const handleClick = (data) => {
     const currentCharacter = chars.find((char) => char.id === data.id);
+    const updatedCharacters = chars.map((char) =>
+      char.id === data.id ? { ...char, clicked: true } : char
+    );
+
     if (!currentCharacter.clicked) {
-      currentCharacter.clicked = true;
       setScore((score) => score + 1);
-      handleFlip();
+      setFlipped(true);
+      setTimeout(() => {
+        randomize(updatedCharacters);
+        setTimeout(() => {
+          setFlipped(false);
+        }, 500);
+      }, 1000);
     } else {
       setGameOver(true);
     }
@@ -52,13 +61,11 @@ export default function Cards({ score, setScore, highScore, setHighScore }) {
     else setGameWon(false);
 
     setGameOver(false);
-    setChars(
-      CHARACTERS.map((character) => {
-        character.clicked = false;
-        return character;
-      })
-    );
-    randomize();
+    const updatedCharacters = chars.map((char) => ({
+      ...char,
+      clicked: false,
+    }));
+    randomize(updatedCharacters);
   };
 
   useEffect(() => {
