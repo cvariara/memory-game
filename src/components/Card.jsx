@@ -17,7 +17,7 @@ export default function Card({ character, handleClick, flipped }) {
         <p className="char-name">{character.name}</p>
       </div>
       <div className='back'>
-        <img className="back-image" src="./src/assets/leaf.jpg" alt="" />
+        <img className="back-image" src="/assets/leaf.jpg" alt="" />
       </div>
     </div>
   );
