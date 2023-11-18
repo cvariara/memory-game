@@ -18,17 +18,8 @@ export default function Cards({ score, setScore, highScore, setHighScore }) {
       }
       return array;
     }
-    console.log("test");
     const randCharacters = shuffleArray(characters);
     setChars(randCharacters);
-  };
-
-  const handleFlip = (updatedCharacters) => {
-    setFlipped(true);
-    setTimeout(() => {
-      setFlipped(false);
-    }, 1500);
-    randomize(updatedCharacters);
   };
 
   const handleClick = (data) => {
@@ -52,8 +43,7 @@ export default function Cards({ score, setScore, highScore, setHighScore }) {
   };
 
   const checkWin = () => {
-    if (chars.every((char) => char.clicked)) return true;
-    return false;
+    return score !== 0 && score % 10 === 0;
   };
 
   const restartGame = () => {
