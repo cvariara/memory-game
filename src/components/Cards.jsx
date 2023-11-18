@@ -4,11 +4,22 @@ import Card from "./Card";
 import GameOverModal from "./GameOverModal";
 import CHARACTERS from "../utils/data";
 
+const BEST_SCORE_KEY = "bestScore";
+
 export default function Cards({ score, setScore, highScore, setHighScore }) {
   const [chars, setChars] = useState(CHARACTERS);
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [flipped, setFlipped] = useState(false);
+
+  const getBestScoreFromLocalStorage = () => {
+    const storedBestScore = localStorage.getItem(BEST_SCORE_KEY);
+    return storedBestScore ? parseInt(storedBestScore, 10) : 0;
+  };
+
+  const updateBestScoreInLocalStorage = (newBestScore) => {
+    localStorage.setItem(BEST_SCORE_KEY, newBestScore.toString());
+  };
 
   const randomize = (characters) => {
     function shuffleArray(array) {
@@ -61,12 +72,18 @@ export default function Cards({ score, setScore, highScore, setHighScore }) {
   useEffect(() => {
     if (score > highScore) {
       setHighScore(score);
+      updateBestScoreInLocalStorage(score);
     }
     if (checkWin()) {
       setGameWon(true);
       setGameOver(true);
     }
   }, [score]);
+
+  useEffect(() => {
+    const storedBestScore = getBestScoreFromLocalStorage();
+    setHighScore(storedBestScore);
+  }, []);
 
   return (
     <>
